@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.ksptool</groupId>
         <artifactId>assembly</artifactId>
-        <version>2.2F</version>
+        <version>2.2H</version>
     </parent>
 
     <artifactId>assembly-mapper</artifactId>

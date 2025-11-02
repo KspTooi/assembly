@@ -6,7 +6,7 @@
 
     <groupId>com.ksptool</groupId>
     <artifactId>assembly</artifactId>
-    <version>2.2F</version>
+    <version>2.2H</version>
     <packaging>pom</packaging>
     <modules>
         <module>assembly-entity</module>
@@ -59,6 +59,18 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>com.ksptool</groupId>
+                <artifactId>assembly-entity</artifactId>
+                <version>2.2H</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ksptool</groupId>
+                <artifactId>assembly-mapper</artifactId>
+                <version>2.2H</version>
+            </dependency>
 
             <dependency>
                 <groupId>jakarta.validation</groupId>
