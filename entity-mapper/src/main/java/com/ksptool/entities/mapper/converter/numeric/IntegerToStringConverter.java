@@ -1,4 +1,4 @@
-package com.ksptool.entities.mapper.converter;
+package com.ksptool.entities.mapper.converter.numeric;
 
 import org.modelmapper.Converter;
 import org.modelmapper.spi.MappingContext;

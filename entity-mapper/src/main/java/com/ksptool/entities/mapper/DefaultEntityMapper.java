@@ -1,9 +1,9 @@
 package com.ksptool.entities.mapper;
 
-import com.ksptool.entities.mapper.converter.DateToStringConverter;
-import com.ksptool.entities.mapper.converter.IntegerToStringConverter;
-import com.ksptool.entities.mapper.converter.LongToStringConverter;
-import com.ksptool.entities.mapper.converter.StringToDateConverter;
+import com.ksptool.entities.mapper.converter.date.DateToStringConverter;
+import com.ksptool.entities.mapper.converter.date.StringToDateConverter;
+import com.ksptool.entities.mapper.converter.numeric.IntegerToStringConverter;
+import com.ksptool.entities.mapper.converter.numeric.LongToStringConverter;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

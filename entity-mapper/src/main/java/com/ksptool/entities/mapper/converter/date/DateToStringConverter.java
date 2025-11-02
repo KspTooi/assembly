@@ -1,18 +1,21 @@
-package com.ksptool.entities.mapper.converter;
+package com.ksptool.entities.mapper.converter.date;
 
 import org.modelmapper.Converter;
 import org.modelmapper.spi.MappingContext;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
  * Date 转 String 的类型转换器。
  * 使用格式 "yyyy-MM-dd HH:mm:ss" 进行日期格式化。
+ * 使用 DateTimeFormatter 保证线程安全，无需创建多个实例。
  */
 public class DateToStringConverter implements Converter<Date, String> {
 
-    private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     /**
      * 将 Date 转换为 String。
@@ -25,7 +28,11 @@ public class DateToStringConverter implements Converter<Date, String> {
         if (context.getSource() == null) {
             return null;
         }
-        return SDF.format(context.getSource());
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(
+                context.getSource().toInstant(),
+                ZoneId.systemDefault()
+        );
+        return localDateTime.format(FORMATTER);
     }
 
 }
