@@ -1,13 +1,13 @@
 package com.ksptool.entities.mapper;
 
+import com.ksptool.entities.mapper.converter.DateToStringConverter;
+import com.ksptool.entities.mapper.converter.IntegerToStringConverter;
+import com.ksptool.entities.mapper.converter.LongToStringConverter;
+import com.ksptool.entities.mapper.converter.StringToDateConverter;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.modelmapper.spi.MappingContext;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -17,8 +17,6 @@ import java.util.Map;
 public class DefaultEntityMapper implements EntityMapper {
 
     private static final ModelMapper mMapper = new ModelMapper();
-
-    private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
      * 构造函数，初始化ModelMapper的配置。
@@ -32,39 +30,10 @@ public class DefaultEntityMapper implements EntityMapper {
      * 包括：Integer转String、Long转String、String转Date、Date转String的转换器。
      */
     public void init() {
-
-        Converter<Integer, String> toStringConverter = new Converter<Integer, String>() {
-            public String convert(MappingContext<Integer, String> context) {
-                return context.getSource() != null ? context.getSource().toString() : null;
-            }
-        };
-
-        Converter<Long, String> longToStringConverter = new Converter<Long, String>() {
-            public String convert(MappingContext<Long, String> context) {
-                return context.getSource() != null ? context.getSource().toString() : null;
-            }
-        };
-
-        Converter<String, Date> strToDateConverter = new Converter<String, Date>() {
-            public Date convert(MappingContext<String, Date> context) {
-                try {
-                    return context.getSource() != null ? sdf.parse(context.getSource()) : null;
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        };
-
-        Converter<Date, String> dateToStrConverter = new Converter<Date, String>() {
-            public String convert(MappingContext<Date, String> context) {
-                return context.getSource() != null ? sdf.format(context.getSource()) : null;
-            }
-        };
-
-        mMapper.addConverter(toStringConverter);
-        mMapper.addConverter(longToStringConverter);
-        mMapper.addConverter(strToDateConverter);
-        mMapper.addConverter(dateToStrConverter);
+        mMapper.addConverter(new IntegerToStringConverter());
+        mMapper.addConverter(new LongToStringConverter());
+        mMapper.addConverter(new StringToDateConverter());
+        mMapper.addConverter(new DateToStringConverter());
         mMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
@@ -91,6 +60,31 @@ public class DefaultEntityMapper implements EntityMapper {
     @Override
     public void assign(Object source, Object target, Map<String, String> map) {
         // TODO: 实现自定义映射逻辑
+    }
+
+
+    /**
+     * 动态注册类型转换器。
+     * 允许在运行时添加自定义的类型转换逻辑。
+     *
+     * @param converter 要注册的转换器
+     * @param <S>       源类型
+     * @param <D>       目标类型
+     */
+    public <S, D> void addConverter(Converter<S, D> converter) {
+        if (converter == null) {
+            return;
+        }
+        mMapper.addConverter(converter);
+    }
+
+    /**
+     * 获取内部的ModelMapper实例，用于高级配置和操作。
+     *
+     * @return ModelMapper实例
+     */
+    public ModelMapper getModelMapper() {
+        return mMapper;
     }
 
 }
