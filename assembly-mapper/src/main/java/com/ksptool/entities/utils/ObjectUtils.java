@@ -5,11 +5,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 
-class ObjectUtils {
+public class ObjectUtils {
 
     // ... 其他代码 ...
 
-    protected static Object getPropertyValue(Object object, String propertyName) {
+    public static Object getPropertyValue(Object object, String propertyName) {
         try {
             // 尝试使用getter方法获取属性值
             String getterMethodName = "get" + capitalize(propertyName);

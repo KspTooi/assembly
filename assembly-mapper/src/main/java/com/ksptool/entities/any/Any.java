@@ -1,8 +1,7 @@
 package com.ksptool.entities.any;
 
-import com.ksptool.entities.ObjectUtils;
 import com.ksptool.entities.mapper.EntityMapper;
-import com.ksptool.entities.mapper.JsonEntityMapper;
+import com.ksptool.entities.utils.ObjectUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -329,8 +328,8 @@ public class Any<T> {
     /**
      * 获取指定字段的值，并转换为指定类型。
      *
-     * @param field  字段名
-     * @param tClass 目标类型
+     * @param field    字段名
+     * @param tClass   目标类型
      * @param <RETURN> 返回值类型
      * @return 字段值，如果为null或类型不匹配则返回null
      */
@@ -361,8 +360,8 @@ public class Any<T> {
     /**
      * 使用BiConsumer设置值，支持链式调用。
      *
-     * @param bi 设置值的BiConsumer函数
-     * @param i  要设置的值
+     * @param bi  设置值的BiConsumer函数
+     * @param i   要设置的值
      * @param <I> 值的类型
      * @return 当前的 Any 对象，支持链式调用
      */

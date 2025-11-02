@@ -7,10 +7,12 @@
     <parent>
         <groupId>com.ksptool</groupId>
         <artifactId>assembly</artifactId>
-        <version>1.5A</version>
+        <version>2.2F</version>
     </parent>
 
     <artifactId>assembly-entity</artifactId>
+
+    <name>Assembly Entity</name>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -31,6 +33,18 @@
             <artifactId>spring-data-commons</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.ksptool</groupId>
+            <artifactId>assembly-mapper</artifactId>
+            <version>2.2F</version>
+        </dependency>
+
     </dependencies>
+
+
+
+
+
+
 
 </project>
