@@ -6,11 +6,12 @@
 
     <groupId>com.ksptool</groupId>
     <artifactId>assembly</artifactId>
-    <version>2.2H</version>
+    <version>2.2J</version>
     <packaging>pom</packaging>
     <modules>
         <module>assembly-entity</module>
         <module>assembly-mapper</module>
+        <module>assembly-check-point-calculator</module>
     </modules>
 
     <properties>
@@ -113,7 +114,7 @@
                         <artifactId>maven-gpg-plugin</artifactId>
                         <version>1.6</version>
                         <configuration>
-                            <executable>C:\ComApp\GnuPG\bin\gpg.exe</executable>
+                            <executable>C:\InternalApps\GnuPG\bin\gpg.exe</executable>
                         </configuration>
                         <executions>
                             <execution>

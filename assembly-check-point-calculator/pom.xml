@@ -3,16 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>com.ksptool</groupId>
         <artifactId>assembly</artifactId>
         <version>2.2J</version>
     </parent>
 
-    <artifactId>assembly-entity</artifactId>
+    <artifactId>assembly-check-point-calculator</artifactId>
 
-    <name>Assembly Entity</name>
+    <name>Assembly Check Point Calculator</name>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -21,30 +20,11 @@
     </properties>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
         <dependency>
-            <groupId>jakarta.validation</groupId>
-            <artifactId>jakarta.validation-api</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.17</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-commons -->
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-commons</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.ksptool</groupId>
-            <artifactId>assembly-mapper</artifactId>
-            <version>2.2H</version>
-        </dependency>
-
     </dependencies>
-
-
-
-
-
-
 
 </project>
