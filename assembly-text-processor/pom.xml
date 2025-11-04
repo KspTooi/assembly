@@ -6,32 +6,15 @@
     <parent>
         <groupId>com.ksptool</groupId>
         <artifactId>assembly</artifactId>
-        <version>${module.version}</version>
+        <version>2.2K</version>
     </parent>
 
-    <artifactId>assembly-mapper</artifactId>
-
-    <name>Assembly Mapper</name>
+    <artifactId>assembly-text-processor</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-    <dependencies>
-
-        <dependency>
-            <groupId>org.modelmapper</groupId>
-            <artifactId>modelmapper</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-        </dependency>
-
-    </dependencies>
-
 
 </project>

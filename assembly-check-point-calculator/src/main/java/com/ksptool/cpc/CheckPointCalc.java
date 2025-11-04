@@ -75,10 +75,10 @@ public class CheckPointCalc {
     //过滤 - 保留某个时间段(不受任何Drop影响)
     private final List<DateTimeWindow> filterWhiteListWin = new ArrayList<>();
 
-    //过滤 - 丢弃开始时间大于现在N分钟的点
+    //过滤 - 丢弃开始时间大于现在N分钟的点 -1:关闭此功能
     private Long dropWhenStartTimeGreaterThanNow = 30L;
 
-    //过滤 - 丢弃开始时间小于现在N分钟的点
+    //过滤 - 丢弃开始时间小于现在N分钟的点 -1:关闭此功能
     private Long dropWhenStartTimeLessThanNow = 30L;
 
     private final Integer cycle;
@@ -188,29 +188,31 @@ public class CheckPointCalc {
             ZonedDateTime start = win.getStart();
             ZonedDateTime end = win.getEnd();
 
-            //过滤 - 开始时间大于现在N分钟
-            long gtNow = ChronoUnit.MINUTES.between(now, win.getStart());
-            if(gtNow > dropWhenStartTimeGreaterThanNow){
-                log.info("[{}]丢弃检查窗口:{} ~ {} 原因: 开始时间大于现在时间超过:{}分钟 现在时间:{} 距离:{}",
-                        calcId,
-                        DTF.format(win.getStart()),
-                        DTF.format(win.getEnd()),
-                        dropWhenStartTimeGreaterThanNow,
-                        DTF.format(now),
-                        gtNow
-                );
-                return false;
-            }
-
-            //过滤 - 开始时间小于现在N分钟
-            if(!calcHistoryCheckpoint){
-                long ltNow = ChronoUnit.MINUTES.between(win.getStart(),now);
-                if(ltNow > dropWhenStartTimeGreaterThanNow){
-                    log.info("[{}]丢弃检查窗口:{} ~ {} 原因: 开始时间小于现在时间超过:{}分钟 现在时间:{} 距离:{}",
+            //过滤 - 开始时间大于现在N分钟 如果关闭此功能则跳过此过滤
+            if(dropWhenStartTimeGreaterThanNow != -1){
+                long gtNow = ChronoUnit.MINUTES.between(now, win.getStart());
+                if(gtNow > dropWhenStartTimeGreaterThanNow){
+                    log.info("[{}]丢弃检查窗口:{} ~ {} 原因: 开始时间大于现在时间超过:{}分钟 现在时间:{} 距离:{}",
                             calcId,
                             DTF.format(win.getStart()),
                             DTF.format(win.getEnd()),
                             dropWhenStartTimeGreaterThanNow,
+                            DTF.format(now),
+                            gtNow
+                    );
+                    return false;
+                }
+            }
+
+            //过滤 - 开始时间小于现在N分钟 如果计算历史检查点 则跳过此过滤
+            if(!calcHistoryCheckpoint){
+                long ltNow = ChronoUnit.MINUTES.between(win.getStart(),now);
+                if(ltNow > dropWhenStartTimeLessThanNow){
+                    log.info("[{}]丢弃检查窗口:{} ~ {} 原因: 开始时间小于现在时间超过:{}分钟 现在时间:{} 距离:{}",
+                            calcId,
+                            DTF.format(win.getStart()),
+                            DTF.format(win.getEnd()),
+                            dropWhenStartTimeLessThanNow,
                             DTF.format(now),
                             ltNow
                     );

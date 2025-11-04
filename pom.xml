@@ -6,18 +6,20 @@
 
     <groupId>com.ksptool</groupId>
     <artifactId>assembly</artifactId>
-    <version>2.2J</version>
+    <version>${module.version}</version>
     <packaging>pom</packaging>
     <modules>
         <module>assembly-entity</module>
         <module>assembly-mapper</module>
         <module>assembly-check-point-calculator</module>
+        <module>assembly-text-processor</module>
     </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <module.version>2.2K</module.version>
     </properties>
 
     <name>Assembly</name>
@@ -57,6 +59,7 @@
             <url>https://jcenter.bintray.com</url>
         </repository>
     </repositories>
+    
 
     <dependencyManagement>
         <dependencies>
@@ -64,13 +67,19 @@
             <dependency>
                 <groupId>com.ksptool</groupId>
                 <artifactId>assembly-entity</artifactId>
-                <version>2.2H</version>
+                <version>${module.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.ksptool</groupId>
                 <artifactId>assembly-mapper</artifactId>
-                <version>2.2H</version>
+                <version>${module.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ksptool</groupId>
+                <artifactId>assembly-check-point-calculator</artifactId>
+                <version>${module.version}</version>
             </dependency>
 
             <dependency>
