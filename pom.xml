@@ -6,20 +6,21 @@
 
     <groupId>com.ksptool</groupId>
     <artifactId>assembly</artifactId>
-    <version>${module.version}</version>
+    <version>2.2M</version>
     <packaging>pom</packaging>
     <modules>
         <module>assembly-entity</module>
         <module>assembly-mapper</module>
         <module>assembly-check-point-calculator</module>
         <module>assembly-text-processor</module>
+        <module>assembly-blueprint</module>
     </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <module.version>2.2K</module.version>
+        <module.version>2.2M</module.version>
     </properties>
 
     <name>Assembly</name>
