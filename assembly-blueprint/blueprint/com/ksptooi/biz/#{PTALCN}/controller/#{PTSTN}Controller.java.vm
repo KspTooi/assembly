@@ -1,0 +1,66 @@
+package ${pkgNameController};
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
+import com.odisp.commons.utils.web.CommonIdDto;
+import com.odisp.commons.utils.web.PageableResult;
+import com.odisp.commons.utils.web.Result;
+import com.ksptooi.commons.utils.web.PageResult;
+import ${pkgNameService}.${classNameService};
+import ${pkgNameVo}.Get${businessClassName}ListVo;
+import ${pkgNameDto}.Get${businessClassName}ListDto;
+import ${pkgNameVo}.Get${businessClassName}DetailsVo;
+import ${pkgNameDto}.Edit${classNameDto};
+import ${pkgNameDto}.Add${classNameDto};
+
+@RestController
+@RequestMapping("/${requestMappingName}")
+@Tag(name = "${apiTagName}", description = "${comments}")
+@Slf4j
+public class ${classNameController} {
+
+    @Autowired
+    private ${classNameService} ${fieldNameService};
+
+    @PostMapping("/get${businessClassName}List")
+    @Operation(summary ="列表查询")
+    public PageableResult<Get${businessClassName}ListVo> get${businessClassName}List(@RequestBody @Valid Get${businessClassName}ListDto dto) throws Exception{
+        return ${fieldNameService}.get${businessClassName}List(dto);
+    }
+
+    @Operation(summary ="新增")
+    @PostMapping("/add${businessClassName}")
+    public Result<String> add${businessClassName}(@RequestBody @Valid Add${classNameDto} dto) throws Exception{
+        ${fieldNameService}.add${businessClassName}(dto);
+        return Result.success("新增成功");
+    }
+
+    @Operation(summary ="编辑")
+    @PostMapping("/edit${businessClassName}")
+    public Result<String> edit${businessClassName}(@RequestBody @Valid Edit${classNameDto} dto) throws Exception{
+        ${fieldNameService}.edit${businessClassName}(dto);
+        return Result.success("修改成功");
+    }
+
+    @Operation(summary ="查询详情")
+    @PostMapping("/get${businessClassName}Details")
+    public Result<Get${businessClassName}DetailsVo> get${businessClassName}Details(@RequestBody @Valid CommonIdDto dto) throws Exception{
+        Get${businessClassName}DetailsVo details = ${fieldNameService}.get${businessClassName}Details(dto);
+        if(details == null){
+            return Result.error("无数据");
+        }
+        return Result.success(details);
+    }
+
+    @Operation(summary ="删除")
+    @PostMapping("/remove${businessClassName}")
+    public Result<String> remove${businessClassName}(@RequestBody @Valid CommonIdDto dto) throws Exception{
+        ${fieldNameService}.remove${businessClassName}(dto);
+        return Result.success("操作成功");
+    }
+
+}

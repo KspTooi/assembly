@@ -1,0 +1,19 @@
+package ${pkgNameDto};
+
+import java.util.Date;
+import lombok.Data;
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Data
+public class Add${businessClassName}Dto {
+
+    #foreach ($field in $fields)
+
+    #if(${field.comment} != "")
+    @Schema(description="${field.comment}")
+    #end
+    private ${field.javaType} ${field.javaFieldName};
+    #end
+
+}
+

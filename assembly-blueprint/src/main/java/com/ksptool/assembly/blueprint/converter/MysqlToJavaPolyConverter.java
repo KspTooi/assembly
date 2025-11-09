@@ -114,7 +114,7 @@ public class MysqlToJavaPolyConverter implements PolyConverter {
         polyField.setRequired(rawField.isRequired());
         polyField.setPrimaryKey(rawField.isPrimaryKey());
         polyField.setSeq(rawField.getSeq());
-        logger.debug("字段{}转换为{}，类型：{}", rawField.getName(), polyField.getName(), polyField.getType());
+        logger.debug("字段{}转换为{}，类型：{}", rawField.getName(), polyField.getStdName(), polyField.getType());
         return polyField;
     }
 

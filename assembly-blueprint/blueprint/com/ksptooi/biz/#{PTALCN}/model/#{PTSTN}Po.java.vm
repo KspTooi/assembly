@@ -1,0 +1,71 @@
+package ${pkgNamePo};
+
+import com.odisp.biz.auth.service.AuthService;
+import com.odisp.commons.utils.IdWorker;
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.Comment;
+
+import java.util.Date;
+
+/**
+ * ${tableComment}
+ *
+ * @author: generator
+ * @date: ${.now?string("yyyy年MM月dd日 HH:mm")}
+ */
+@Getter
+@Setter
+@Entity
+@Table(name = "${tableName}")
+public class ${classNamePo} {
+
+    #foreach ($field in $fields)
+    #if($field.primary == true)
+    @Column(name = "${field.name}")
+    @Id
+    #if($field.comment != '')
+    @Comment("${field.comment}")
+    #end
+    private ${field.javaType} ${field.javaFieldName};
+    #end
+
+    #if($field.primary != true)
+    @Column(name = "${field.name}"#if($field.length && $field.length > 0), length = ${field.length}#end#if($field.nullable == false), nullable = false#end#if($field.unique), unique = true#end)
+    #if($field.comment != '')
+    @Comment("${field.comment}")
+    #end
+    private ${field.javaType} ${field.javaFieldName};
+    #end
+    #end
+
+    @PrePersist
+    private void onCreate() {
+        if (this.id == null) {
+            this.id = IdWorker.nextId();
+        }
+        
+        Date now = new Date();
+        if (this.createTime == null) {
+            this.createTime = now;
+        }
+        if (this.updateTime == null) {
+            this.updateTime = this.createTime;
+        }
+        
+        if (this.creatorId == null) {
+            this.creatorId = AuthService.getCurrentUserId();
+        }
+        if (this.updaterId == null) {
+            this.updaterId = AuthService.getCurrentUserId();
+        }
+    }
+
+    @PreUpdate
+    private void onUpdate() {
+        this.updateTime = new Date();
+        if (this.updaterId == null) {
+            this.updaterId = AuthService.getCurrentUserId();
+        }
+    }
+}

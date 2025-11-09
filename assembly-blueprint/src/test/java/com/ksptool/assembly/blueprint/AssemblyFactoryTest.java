@@ -21,7 +21,7 @@ public class AssemblyFactoryTest {
         coll.setPassword("root");
         coll.setDatabase("endpoint_analysis_service");
 
-        //创建Mysql转换器
+        //创建Mysql聚合转换器
         MysqlToJavaPolyConverter converter = new MysqlToJavaPolyConverter();
 
         //创建AssemblyFactory

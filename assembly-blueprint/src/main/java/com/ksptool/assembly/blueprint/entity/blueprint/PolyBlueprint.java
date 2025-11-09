@@ -1,13 +1,14 @@
 package com.ksptool.assembly.blueprint.entity.blueprint;
 
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter@Getter
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+@Setter
+@Getter
 public class PolyBlueprint {
 
     //原始蓝图
@@ -21,11 +22,11 @@ public class PolyBlueprint {
 
     /**
      * 获取最终输出文件路径
+     *
      * @return 最终输出文件路径
      */
     public Path getOutputFilePath() {
         return Paths.get(outputFilePath);
     }
-
 
 }

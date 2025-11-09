@@ -1,0 +1,73 @@
+package ${pkgNameService};
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
+import com.ksptooi.commons.utils.web.PageResult;
+import com.ksptooi.commons.utils.web.CommonIdDto;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
+import com.ksptooi.commons.exception.BizException;
+import java.util.Optional;
+import ${pkgNameRepository}.${businessClassName}Repository;
+import ${pkgNamePo}.${classNamePo};
+import ${pkgNameVo}.Get${businessClassName}ListVo;
+import ${pkgNameDto}.Get${businessClassName}ListDto;
+import ${pkgNameVo}.Get${businessClassName}DetailsVo;
+import ${pkgNameDto}.Edit${classNameDto};
+import ${pkgNameDto}.Add${classNameDto};
+import static com.ksptool.entities.Entities.as;
+import static com.ksptool.entities.Entities.assign;
+
+@Service
+public class ${classNameService} {
+
+    @Autowired
+    private ${businessClassName}Repository repository;
+
+    public PageResult<Get${businessClassName}ListVo> get${businessClassName}List(Get${businessClassName}ListDto dto){
+        ${classNamePo} query = new ${classNamePo}();
+        assign(dto,query);
+
+        Page<${classNamePo}> page = repository.get${businessClassName}List(query, dto.pageRequest());
+        if (page.isEmpty()) {
+            return PageResult.successWithEmpty();
+        }
+
+        List<Get${businessClassName}ListVo> vos = as(page.getContent(), Get${businessClassName}ListVo.class);
+        return PageResult.success(vos, (int) page.getTotalElements());
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void add${businessClassName}(Add${classNameDto} dto){
+        ${classNamePo} insertPo = as(dto,${classNamePo}.class);
+        repository.save(insertPo);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void edit${businessClassName}(Edit${classNameDto} dto) throws BizException {
+        ${classNamePo} updatePo = repository.findById(dto.getId())
+            .orElseThrow(()-> new BizException("更新失败,数据不存在."));
+
+        assign(dto,updatePo);
+        repository.save(updatePo);
+    }
+
+    public Get${businessClassName}DetailsVo get${businessClassName}Details(CommonIdDto dto) throws BizException {
+        ${classNamePo} po = repository.findById(dto.getId())
+            .orElseThrow(()-> new BizException("更新失败,数据不存在."));
+        return as(po,Get${businessClassName}DetailsVo.class);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void remove${businessClassName}(CommonIdDto dto) throws BizException {
+        if (dto.isBatch()) {
+            repository.deleteAllById(dto.getIds());
+        }
+        if(!dto.isBatch()){
+            repository.deleteById(dto.getId());
+        }
+    }
+
+}
